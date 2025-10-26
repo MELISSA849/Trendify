@@ -1,0 +1,30 @@
+# Node modules (in case you use node tools)
+node_modules/
+
+# VS Code
+.vscode/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Environment / secrets
+.env
+.env.*
+
+# Logs
+npm-debug.log*
+*.log
+
+# Build outputs
+dist/
+build/
+
+# OS specific
+desktop.ini
+
+# Optional editors
+*.suo
+*.ntvs*
+*.njsproj
+*.sln

@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us - Trendify</title>
+  <link rel="stylesheet" href="css/main.css">
+  <style>
+    .contact-hero {
+      background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+      color: white;
+      padding: 4rem 0;
+      text-align: center;
+    }
+
+    .contact-hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .contact-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      margin: 4rem 0;
+    }
+
+    .contact-info {
+      background: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-md);
+      padding: 2rem;
+    }
+
+    .contact-form {
+      background: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-md);
+      padding: 2rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      padding: 1rem;
+      background: var(--light-gray);
+      border-radius: var(--border-radius);
+    }
+
+    .contact-icon {
+      width: 50px;
+      height: 50px;
+      background: var(--primary-color);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .contact-details h3 {
+      margin: 0 0 0.5rem 0;
+      color: var(--dark-color);
+    }
+
+    .contact-details p {
+      margin: 0;
+      color: var(--medium-gray);
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: var(--dark-color);
+      font-weight: 500;
+    }
+
+    .form-input, .form-textarea {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 2px solid var(--border-color);
+      border-radius: var(--border-radius);
+      font-size: 1rem;
+      transition: var(--transition);
+      font-family: inherit;
+    }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .form-input:focus, .form-textarea:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    }
+
+    .form-select {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 2px solid var(--border-color);
+      border-radius: var(--border-radius);
+      background: white;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .form-select:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .social-link {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: var(--transition);
+      font-size: 1.2rem;
+    }
+
+    .social-link.facebook {
+      background: #1877f2;
+      color: white;
+    }
+
+    .social-link.twitter {
+      background: #1da1f2;
+      color: white;
+    }
+
+    .social-link.instagram {
+      background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+      color: white;
+    }
+
+    .social-link.linkedin {
+      background: #0077b5;
+      color: white;
+    }
+
+    .social-link:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .map-section {
+      margin: 4rem 0;
+      background: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+    }
+
+    .map-placeholder {
+      height: 300px;
+      background: var(--light-gray);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--medium-gray);
+      font-size: 1.1rem;
+    }
+
+    .faq-section {
+      margin: 4rem 0;
+    }
+
+    .faq-grid {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .faq-item {
+      background: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+    }
+
+    .faq-question {
+      padding: 1.5rem;
+      background: var(--light-gray);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+
+    .faq-question:hover {
+      background: #e2e8f0;
+    }
+
+    .faq-answer {
+      padding: 0 1.5rem;
+      max-height: 0;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      background: white;
+    }
+
+    .faq-answer.active {
+      padding: 1.5rem;
+      max-height: 200px;
+    }
+
+    .faq-toggle {
+      font-size: 1.2rem;
+      transition: var(--transition);
+    }
+
+    .faq-question.active .faq-toggle {
+      transform: rotate(45deg);
+    }
+
+    @media (max-width: 768px) {
+      .contact-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .contact-hero h1 {
+        font-size: 2rem;
+      }
+
+      .contact-item {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .social-links {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <a href="index.html" class="logo">
+        🛒 Trendify
+      </a>
+      
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="categories.html">Categories</a></li>
+          <li><a href="wishlist.html">Wishlist</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <div class="search-box">
+          <input type="text" class="search-input" placeholder="Search products..." id="headerSearch">
+          <button class="search-btn" onclick="performSearch()">🔍</button>
+        </div>
+        
+        <a href="cart.html" class="cart-icon">
+          🛒
+          <span class="cart-count">0</span>
+        </a>
+        
+        <div id="userActions">
+          <a href="login.html" class="btn btn-outline">Login</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Contact Hero -->
+  <section class="contact-hero">
+    <div class="container">
+      <h1>Contact Us</h1>
+      <p>We'd love to hear from you. Get in touch with our team.</p>
+    </div>
+  </section>
+
+  <!-- Contact Content -->
+  <section class="section">
+    <div class="container">
+      <div class="contact-content">
+        <!-- Contact Information -->
+        <div class="contact-info">
+          <h2>Get in Touch</h2>
+          <p style="margin-bottom: 2rem; color: var(--medium-gray);">
+            Have questions about our products or need assistance? We're here to help!
+          </p>
+
+          <div class="contact-item">
+            <div class="contact-icon">📍</div>
+            <div class="contact-details">
+              <h3>Address</h3>
+              <p>123 Shopping Street<br>Fashion District, Mumbai 400001<br>India</p>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-icon">📞</div>
+            <div class="contact-details">
+              <h3>Phone</h3>
+              <p>+91 98765 43210<br>Mon-Sat 9:00 AM - 8:00 PM</p>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-icon">✉️</div>
+            <div class="contact-details">
+              <h3>Email</h3>
+              <p>support@trendify.com<br>info@trendify.com</p>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-icon">💬</div>
+            <div class="contact-details">
+              <h3>Live Chat</h3>
+              <p>Available 24/7<br>Click the chat icon</p>
+            </div>
+          </div>
+
+          <div class="social-links">
+            <a href="#" class="social-link facebook">📘</a>
+            <a href="#" class="social-link twitter">🐦</a>
+            <a href="#" class="social-link instagram">📷</a>
+            <a href="#" class="social-link linkedin">💼</a>
+          </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="contact-form">
+          <h2>Send us a Message</h2>
+          <form id="contactForm">
+            <div class="form-group">
+              <label for="name" class="form-label">Full Name *</label>
+              <input type="text" id="name" name="name" class="form-input" required>
+            </div>
+
+            <div class="form-group">
+              <label for="email" class="form-label">Email Address *</label>
+              <input type="email" id="email" name="email" class="form-input" required>
+            </div>
+
+            <div class="form-group">
+              <label for="phone" class="form-label">Phone Number</label>
+              <input type="tel" id="phone" name="phone" class="form-input">
+            </div>
+
+            <div class="form-group">
+              <label for="subject" class="form-label">Subject *</label>
+              <select id="subject" name="subject" class="form-select" required>
+                <option value="">Select a subject</option>
+                <option value="product-inquiry">Product Inquiry</option>
+                <option value="order-support">Order Support</option>
+                <option value="technical-issue">Technical Issue</option>
+                <option value="billing-question">Billing Question</option>
+                <option value="partnership">Partnership</option>
+                <option value="feedback">Feedback</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="message" class="form-label">Message *</label>
+              <textarea id="message" name="message" class="form-textarea" 
+                        placeholder="Tell us how we can help you..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%;">
+              Send Message
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Map Section -->
+      <div class="map-section">
+        <div class="map-placeholder">
+          🗺️ Interactive Map would be integrated here (Google Maps / OpenStreetMap)
+        </div>
+      </div>
+
+      <!-- FAQ Section -->
+      <div class="faq-section">
+        <h2 style="text-align: center; margin-bottom: 2rem;">Frequently Asked Questions</h2>
+        <div class="faq-grid">
+          <div class="faq-item">
+            <div class="faq-question" onclick="toggleFAQ(this)">
+              <span>What are your shipping options?</span>
+              <span class="faq-toggle">+</span>
+            </div>
+            <div class="faq-answer">
+              <p>We offer free standard shipping on orders over ₹999. Express shipping is available for ₹99. Orders are typically processed within 1-2 business days.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question" onclick="toggleFAQ(this)">
+              <span>What is your return policy?</span>
+              <span class="faq-toggle">+</span>
+            </div>
+            <div class="faq-answer">
+              <p>We offer a 30-day return policy for unused items in original packaging. Returns are free, and refunds are processed within 5-7 business days.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question" onclick="toggleFAQ(this)">
+              <span>Do you offer international shipping?</span>
+              <span class="faq-toggle">+</span>
+            </div>
+            <div class="faq-answer">
+              <p>Currently, we only ship within India. We're working on expanding to international markets soon. Sign up for our newsletter to be notified.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question" onclick="toggleFAQ(this)">
+              <span>How can I track my order?</span>
+              <span class="faq-toggle">+</span>
+            </div>
+            <div class="faq-answer">
+              <p>Once your order ships, you'll receive a tracking number via email and SMS. You can also track your order by logging into your account.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question" onclick="toggleFAQ(this)">
+              <span>What payment methods do you accept?</span>
+              <span class="faq-toggle">+</span>
+            </div>
+            <div class="faq-answer">
+              <p>We accept all major credit/debit cards, UPI, net banking, and cash on delivery. All payments are processed securely.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>Trendify</h3>
+          <p>Your one-stop shop for trendy products at amazing prices.</p>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <a href="index.html">Home</a>
+          <a href="categories.html">Categories</a>
+          <a href="about.html">About Us</a>
+          <a href="contact.html">Contact</a>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Customer Service</h3>
+          <a href="#">Help Center</a>
+          <a href="#">Shipping Info</a>
+          <a href="#">Returns</a>
+          <a href="#">Size Guide</a>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Connect</h3>
+          <a href="#">Facebook</a>
+          <a href="#">Instagram</a>
+          <a href="#">Twitter</a>
+          <a href="#">YouTube</a>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2025 Trendify. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/utils.js"></script>
+  <script src="js/cart.js"></script>
+  <script>
+    const cartManager = new CartManager();
+
+    // Initialize page
+    document.addEventListener('DOMContentLoaded', () => {
+      checkUserAuth();
+    });
+
+    // Handle contact form submission
+    document.getElementById('contactForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const formData = new FormData(e.target);
+      const data = Object.fromEntries(formData);
+      
+      // Simulate form submission
+      cartManager.showNotification('Message sent successfully! We\'ll get back to you soon.', 'success');
+      
+      // Reset form
+      e.target.reset();
+      
+      // In a real application, this would send data to a server
+      console.log('Contact form data:', data);
+    });
+
+    function toggleFAQ(element) {
+      const answer = element.nextElementSibling;
+      const toggle = element.querySelector('.faq-toggle');
+      
+      // Close all other FAQs
+      document.querySelectorAll('.faq-answer.active').forEach(faq => {
+        if (faq !== answer) {
+          faq.classList.remove('active');
+          faq.previousElementSibling.classList.remove('active');
+        }
+      });
+      
+      // Toggle current FAQ
+      answer.classList.toggle('active');
+      element.classList.toggle('active');
+    }
+
+    function performSearch() {
+      const searchValue = document.getElementById('headerSearch').value.trim();
+      if (searchValue) {
+        window.location.href = `categories.html?search=${encodeURIComponent(searchValue)}`;
+      }
+    }
+
+    function checkUserAuth() {
+      const currentUser = Utils.getLocalStorage('trendify_current_user', null);
+      const userActions = document.getElementById('userActions');
+      
+      if (currentUser) {
+        userActions.innerHTML = `
+          <span>Hi, ${currentUser.firstName}!</span>
+          <button class="btn btn-outline" onclick="logout()">Logout</button>
+        `;
+      }
+    }
+
+    window.logout = function() {
+      localStorage.removeItem('trendify_current_user');
+      cartManager.showNotification('Logged out successfully!', 'info');
+      setTimeout(() => window.location.reload(), 1000);
+    };
+  </script>
+</body>
+</html>

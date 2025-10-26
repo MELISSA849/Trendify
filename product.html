@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Product Details - Trendify</title>
+  <link rel="stylesheet" href="css/main.css">
+  <style>
+    .product-hero {
+      padding: 2rem 0;
+      background: var(--light-gray);
+    }
+    
+    .product-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      margin: 2rem 0;
+    }
+    
+    .product-gallery {
+      position: relative;
+    }
+    
+    .main-image {
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-md);
+    }
+    
+    .product-details {
+      padding: 1rem 0;
+    }
+    
+    .product-title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--dark-color);
+      margin-bottom: 1rem;
+    }
+    
+    .product-rating {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .product-price {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .current-price {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary-color);
+    }
+    
+    .original-price {
+      font-size: 1.5rem;
+      text-decoration: line-through;
+      color: var(--medium-gray);
+    }
+    
+    .discount-badge {
+      background: var(--accent-color);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: var(--border-radius);
+      font-weight: 600;
+    }
+    
+    .product-description {
+      color: var(--medium-gray);
+      line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+    
+    .product-actions {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    
+    .quantity-selector {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .quantity-btn {
+      width: 40px;
+      height: 40px;
+      border: 2px solid var(--primary-color);
+      background: white;
+      color: var(--primary-color);
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+    
+    .quantity-btn:hover {
+      background: var(--primary-color);
+      color: white;
+    }
+    
+    .quantity-input {
+      width: 60px;
+      text-align: center;
+      padding: 0.5rem;
+      border: 2px solid var(--border-color);
+      border-radius: var(--border-radius);
+    }
+    
+    @media (max-width: 768px) {
+      .product-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      
+      .product-title {
+        font-size: 1.5rem;
+      }
+      
+      .product-actions {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <a href="index.html" class="logo">
+        🛒 Trendify
+      </a>
+      
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="categories.html">Categories</a></li>
+          <li><a href="wishlist.html">Wishlist</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <a href="categories.html" class="btn btn-outline">← Continue Shopping</a>
+        
+        <a href="cart.html" class="cart-icon">
+          🛒
+          <span class="cart-count">0</span>
+        </a>
+        
+        <div id="userActions">
+          <a href="login.html" class="btn btn-outline">Login</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Product Content -->
+  <section class="product-hero">
+    <div class="container">
+      <div class="product-container" id="productContainer">
+        <div class="spinner" style="grid-column: 1 / -1; text-align: center;"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>Trendify</h3>
+          <p>Your one-stop shop for trendy products at amazing prices.</p>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <a href="index.html">Home</a>
+          <a href="categories.html">Categories</a>
+          <a href="about.html">About Us</a>
+          <a href="contact.html">Contact</a>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Customer Service</h3>
+          <a href="#">Help Center</a>
+          <a href="#">Shipping Info</a>
+          <a href="#">Returns</a>
+          <a href="#">Size Guide</a>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Connect</h3>
+          <a href="#">Facebook</a>
+          <a href="#">Instagram</a>
+          <a href="#">Twitter</a>
+          <a href="#">YouTube</a>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2025 Trendify. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/utils.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script>
+    // Initialize managers
+    const productManager = new ProductManager();
+    const cartManager = new CartManager();
+    
+    let currentProduct = null;
+    let quantity = 1;
+
+    // Initialize page
+    document.addEventListener('DOMContentLoaded', () => {
+      loadProduct();
+      checkUserAuth();
+    });
+
+    function loadProduct() {
+      const productData = JSON.parse(localStorage.getItem("selectedProduct") || "{}");
+      const container = document.getElementById("productContainer");
+      
+      if (!productData.id) {
+        container.innerHTML = `
+          <div style="grid-column: 1 / -1; text-align: center; padding: 3rem;">
+            <h2>Product not found</h2>
+            <p>Please go back and select a product to view.</p>
+            <a href="categories.html" class="btn btn-primary">Browse Products</a>
+          </div>
+        `;
+        return;
+      }
+      
+      // Get full product data from ProductManager
+      currentProduct = productManager.getProductById(productData.id) || productData;
+      
+      setTimeout(() => {
+        renderProduct(currentProduct);
+      }, 500);
+    }
+
+    function renderProduct(product) {
+      const container = document.getElementById("productContainer");
+      
+      const discount = product.originalPrice && product.originalPrice > product.price 
+        ? Utils.formatDiscount(product.originalPrice, product.price)
+        : 0;
+      
+      container.innerHTML = `
+        <div class="product-gallery">
+          <img src="${product.image || product.img}" alt="${product.name}" class="main-image"
+               onerror="this.src='https://via.placeholder.com/500x500/6366f1/ffffff?text=${encodeURIComponent(product.name)}'">
+        </div>
+        
+        <div class="product-details">
+          <h1 class="product-title">${product.name}</h1>
+          
+          <div class="product-rating">
+            ${Utils.generateStarRating(product.rating || 4.5)}
+            <span class="rating-count">(${product.reviews || 0} reviews)</span>
+          </div>
+          
+          <div class="product-price">
+            <span class="current-price">${Utils.formatCurrency(product.price)}</span>
+            ${product.originalPrice && product.originalPrice > product.price 
+              ? `<span class="original-price">${Utils.formatCurrency(product.originalPrice)}</span>
+                 <span class="discount-badge">-${discount}% OFF</span>` 
+              : ''}
+          </div>
+          
+          <div class="product-description">
+            <p>${product.description || product.desc || 'No description available.'}</p>
+          </div>
+          
+          <div class="quantity-selector">
+            <span style="margin-right: 1rem; font-weight: 500;">Quantity:</span>
+            <button class="quantity-btn" onclick="changeQuantity(-1)">-</button>
+            <input type="number" class="quantity-input" id="quantityInput" value="1" min="1" max="10" onchange="updateQuantity()">
+            <button class="quantity-btn" onclick="changeQuantity(1)">+</button>
+          </div>
+          
+          <div class="product-actions">
+            <button class="btn btn-primary" onclick="addToCart()" style="flex: 2;">
+              Add to Cart - ${Utils.formatCurrency(product.price)}
+            </button>
+            <button class="btn btn-outline" onclick="toggleWishlist(${product.id})" style="flex: 1;">
+              ${cartManager.isInWishlist(product.id) ? '❤️ In Wishlist' : '🤍 Add to Wishlist'}
+            </button>
+          </div>
+          
+          <div style="margin-top: 2rem; padding: 1rem; background: var(--light-gray); border-radius: var(--border-radius);">
+            <h4 style="margin-bottom: 0.5rem; color: var(--dark-color);">Product Features:</h4>
+            <ul style="margin: 0; padding-left: 1.5rem; color: var(--medium-gray);">
+              <li>High-quality materials</li>
+              <li>30-day return policy</li>
+              <li>Free shipping on orders over ₹999</li>
+              <li>1-year warranty included</li>
+            </ul>
+          </div>
+        </div>
+      `;
+    }
+
+    function changeQuantity(change) {
+      const input = document.getElementById('quantityInput');
+      let newQuantity = parseInt(input.value) + change;
+      
+      if (newQuantity < 1) newQuantity = 1;
+      if (newQuantity > 10) newQuantity = 10;
+      
+      input.value = newQuantity;
+      quantity = newQuantity;
+      updatePriceDisplay();
+    }
+
+    function updateQuantity() {
+      const input = document.getElementById('quantityInput');
+      quantity = Math.max(1, Math.min(10, parseInt(input.value) || 1));
+      input.value = quantity;
+      updatePriceDisplay();
+    }
+
+    function updatePriceDisplay() {
+      const addToCartBtn = document.querySelector('.product-actions .btn-primary');
+      if (addToCartBtn && currentProduct) {
+        const totalPrice = currentProduct.price * quantity;
+        addToCartBtn.textContent = `Add to Cart - ${Utils.formatCurrency(totalPrice)}`;
+      }
+    }
+
+    function addToCart() {
+      if (!currentProduct) return;
+      
+      for (let i = 0; i < quantity; i++) {
+        cartManager.addToCart(currentProduct.id);
+      }
+      
+      cartManager.showNotification(`Added ${quantity} item(s) to cart!`, 'success');
+    }
+
+    function toggleWishlist(productId) {
+      if (cartManager.isInWishlist(productId)) {
+        cartManager.removeFromWishlist(productId);
+      } else {
+        cartManager.addToWishlist(productId);
+      }
+      
+      // Update button text
+      const wishlistBtn = document.querySelector('.product-actions .btn-outline');
+      if (wishlistBtn) {
+        wishlistBtn.textContent = cartManager.isInWishlist(productId) ? '❤️ In Wishlist' : '🤍 Add to Wishlist';
+      }
+    }
+
+    function checkUserAuth() {
+      const currentUser = Utils.getLocalStorage('trendify_current_user', null);
+      const userActions = document.getElementById('userActions');
+      
+      if (currentUser) {
+        userActions.innerHTML = `
+          <span>Hi, ${currentUser.firstName}!</span>
+          <button class="btn btn-outline" onclick="logout()">Logout</button>
+        `;
+      }
+    }
+
+    window.logout = function() {
+      localStorage.removeItem('trendify_current_user');
+      cartManager.showNotification('Logged out successfully!', 'info');
+      setTimeout(() => window.location.reload(), 1000);
+    };
+  </script>
+</body>
+</html>

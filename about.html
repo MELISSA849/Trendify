@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us - Trendify</title>
+  <link rel="stylesheet" href="css/main.css">
+  <style>
+    .about-hero {
+      background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+      color: white;
+      padding: 4rem 0;
+      text-align: center;
+    }
+
+    .about-hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .about-hero p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .story-section {
+      padding: 4rem 0;
+      background: white;
+    }
+
+    .story-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .story-text h2 {
+      font-size: 2.2rem;
+      margin-bottom: 1.5rem;
+      color: var(--dark-color);
+    }
+
+    .story-text p {
+      color: var(--medium-gray);
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+
+    .story-image {
+      text-align: center;
+      font-size: 8rem;
+    }
+
+    .values-section {
+      padding: 4rem 0;
+      background: var(--light-gray);
+    }
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .value-card {
+      background: white;
+      padding: 2rem;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-sm);
+      text-align: center;
+      transition: var(--transition);
+    }
+
+    .value-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .value-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .value-card h3 {
+      color: var(--dark-color);
+      margin-bottom: 1rem;
+    }
+
+    .value-card p {
+      color: var(--medium-gray);
+      line-height: 1.6;
+    }
+
+    .team-section {
+      padding: 4rem 0;
+      background: white;
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .team-member {
+      background: var(--light-gray);
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      text-align: center;
+      transition: var(--transition);
+    }
+
+    .team-member:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .member-avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: var(--primary-color);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      margin: 2rem auto 1rem;
+    }
+
+    .member-info {
+      padding: 0 2rem 2rem;
+    }
+
+    .member-name {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--dark-color);
+      margin-bottom: 0.5rem;
+    }
+
+    .member-role {
+      color: var(--primary-color);
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+
+    .member-bio {
+      color: var(--medium-gray);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .stats-section {
+      padding: 4rem 0;
+      background: var(--dark-color);
+      color: white;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--secondary-color);
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    .timeline-section {
+      padding: 4rem 0;
+      background: white;
+    }
+
+    .timeline {
+      position: relative;
+      max-width: 800px;
+      margin: 3rem auto 0;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: var(--primary-color);
+      transform: translateX(-50%);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 3rem;
+    }
+
+    .timeline-item:nth-child(odd) .timeline-content {
+      margin-right: calc(50% + 2rem);
+      text-align: right;
+    }
+
+    .timeline-item:nth-child(even) .timeline-content {
+      margin-left: calc(50% + 2rem);
+    }
+
+    .timeline-content {
+      background: var(--light-gray);
+      padding: 1.5rem;
+      border-radius: var(--border-radius);
+      position: relative;
+    }
+
+    .timeline-year {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+    }
+
+    .timeline-event {
+      color: var(--dark-color);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .timeline-description {
+      color: var(--medium-gray);
+      font-size: 0.9rem;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: 50%;
+      top: 1rem;
+      width: 16px;
+      height: 16px;
+      background: var(--secondary-color);
+      border-radius: 50%;
+      transform: translateX(-50%);
+      border: 4px solid white;
+      box-shadow: 0 0 0 4px var(--primary-color);
+    }
+
+    .cta-section {
+      padding: 4rem 0;
+      background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+      color: white;
+      text-align: center;
+    }
+
+    .cta-section h2 {
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .cta-section p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      margin-bottom: 2rem;
+    }
+
+    @media (max-width: 768px) {
+      .about-hero h1 {
+        font-size: 2.2rem;
+      }
+
+      .story-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .story-image {
+        font-size: 5rem;
+      }
+
+      .values-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline::before {
+        left: 2rem;
+      }
+
+      .timeline-item:nth-child(odd) .timeline-content,
+      .timeline-item:nth-child(even) .timeline-content {
+        margin-left: 4rem;
+        margin-right: 0;
+        text-align: left;
+      }
+
+      .timeline-dot {
+        left: 2rem;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <a href="index.html" class="logo">
+        🛒 Trendify
+      </a>
+      
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="categories.html">Categories</a></li>
+          <li><a href="wishlist.html">Wishlist</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <div class="search-box">
+          <input type="text" class="search-input" placeholder="Search products..." id="headerSearch">
+          <button class="search-btn" onclick="performSearch()">🔍</button>
+        </div>
+        
+        <a href="cart.html" class="cart-icon">
+          🛒
+          <span class="cart-count">0</span>
+        </a>
+        
+        <div id="userActions">
+          <a href="login.html" class="btn btn-outline">Login</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- About Hero -->
+  <section class="about-hero">
+    <div class="container">
+      <h1>About Trendify</h1>
+      <p>We're on a mission to make trendy, quality products accessible to everyone, everywhere.</p>
+    </div>
+  </section>
+
+  <!-- Our Story -->
+  <section class="story-section">
+    <div class="container">
+      <div class="story-content">
+        <div class="story-text">
+          <h2>Our Story</h2>
+          <p>
+            Founded in 2020, Trendify started with a simple idea: everyone deserves access to trendy, 
+            high-quality products at affordable prices. What began as a small team of passionate 
+            entrepreneurs has grown into a thriving e-commerce platform serving thousands of 
+            customers across India.
+          </p>
+          <p>
+            We believe that shopping should be an enjoyable experience, which is why we've built 
+            our platform with the user in mind. From curated product selections to seamless 
+            checkout processes, every aspect of Trendify is designed to delight our customers.
+          </p>
+          <p>
+            Today, we're proud to offer a diverse range of products across multiple categories, 
+            all while maintaining our commitment to quality, affordability, and exceptional 
+            customer service.
+          </p>
+        </div>
+        <div class="story-image">
+          🏪
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Our Values -->
+  <section class="values-section">
+    <div class="container">
+      <h2 class="section-title">Our Values</h2>
+      <p class="section-subtitle">The principles that guide everything we do</p>
+      
+      <div class="values-grid">
+        <div class="value-card">
+          <div class="value-icon">⭐</div>
+          <h3>Quality First</h3>
+          <p>We carefully curate every product to ensure it meets our high standards of quality and durability.</p>
+        </div>
+        
+        <div class="value-card">
+          <div class="value-icon">💰</div>
+          <h3>Affordable Pricing</h3>
+          <p>Great products shouldn't break the bank. We work hard to offer competitive prices without compromising quality.</p>
+        </div>
+        
+        <div class="value-card">
+          <div class="value-icon">🚚</div>
+          <h3>Fast Delivery</h3>
+          <p>We understand you want your products quickly. Our efficient logistics ensure fast and reliable delivery.</p>
+        </div>
+        
+        <div class="value-card">
+          <div class="value-icon">💎</div>
+          <h3>Customer Satisfaction</h3>
+          <p>Your happiness is our priority. We go above and beyond to ensure every customer has a great experience.</p>
+        </div>
+        
+        <div class="value-card">
+          <div class="value-icon">🌱</div>
+          <h3>Sustainability</h3>
+          <p>We're committed to environmentally responsible practices and sustainable business operations.</p>
+        </div>
+        
+        <div class="value-card">
+          <div class="value-icon">🤝</div>
+          <h3>Trust & Transparency</h3>
+          <p>We believe in honest communication and building long-term relationships with our customers.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Statistics -->
+  <section class="stats-section">
+    <div class="container">
+      <h2 class="section-title">Trendify by the Numbers</h2>
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-number">50K+</div>
+          <div class="stat-label">Happy Customers</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">1000+</div>
+          <div class="stat-label">Products</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">25+</div>
+          <div class="stat-label">Cities Served</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">4.8</div>
+          <div class="stat-label">Average Rating</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Meet Our Team -->
+  <section class="team-section">
+    <div class="container">
+      <h2 class="section-title">Meet Our Team</h2>
+      <p class="section-subtitle">The passionate people behind Trendify</p>
+      
+      <div class="team-grid">
+        <div class="team-member">
+          <div class="member-avatar">👨‍💼</div>
+          <div class="member-info">
+            <div class="member-name">Rajesh Kumar</div>
+            <div class="member-role">Founder & CEO</div>
+            <div class="member-bio">
+              Visionary entrepreneur with 10+ years in e-commerce. Passionate about 
+              creating exceptional customer experiences.
+            </div>
+          </div>
+        </div>
+        
+        <div class="team-member">
+          <div class="member-avatar">👩‍💻</div>
+          <div class="member-info">
+            <div class="member-name">Priya Sharma</div>
+            <div class="member-role">CTO</div>
+            <div class="member-bio">
+              Tech enthusiast who leads our engineering team. Focused on building 
+              scalable and user-friendly platforms.
+            </div>
+          </div>
+        </div>
+        
+        <div class="team-member">
+          <div class="member-avatar">👨‍🎨</div>
+          <div class="member-info">
+            <div class="member-name">Amit Patel</div>
+            <div class="member-role">Head of Design</div>
+            <div class="member-bio">
+              Creative director with an eye for detail. Ensures every interaction 
+              with Trendify is beautiful and intuitive.
+            </div>
+          </div>
+        </div>
+        
+        <div class="team-member">
+          <div class="member-avatar">👩‍📊</div>
+          <div class="member-info">
+            <div class="member-name">Sneha Gupta</div>
+            <div class="member-role">Head of Marketing</div>
+            <div class="member-bio">
+              Marketing strategist who helps connect our brand with customers. 
+              Passionate about building meaningful relationships.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Timeline -->
+  <section class="timeline-section">
+    <div class="container">
+      <h2 class="section-title">Our Journey</h2>
+      <p class="section-subtitle">Key milestones in our growth story</p>
+      
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-year">2020</div>
+            <div class="timeline-event">Trendify Founded</div>
+            <div class="timeline-description">
+              Started with a small team and big dreams to revolutionize online shopping in India.
+            </div>
+          </div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-year">2021</div>
+            <div class="timeline-event">First 1,000 Customers</div>
+            <div class="timeline-description">
+              Reached our first major milestone with incredible customer feedback and support.
+            </div>
+          </div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-year">2022</div>
+            <div class="timeline-event">Mobile App Launch</div>
+            <div class="timeline-description">
+              Launched our mobile app to provide customers with shopping on-the-go convenience.
+            </div>
+          </div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-year">2023</div>
+            <div class="timeline-event">Series A Funding</div>
+            <div class="timeline-description">
+              Secured funding to expand our product catalog and improve customer experience.
+            </div>
+          </div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-year">2024</div>
+            <div class="timeline-event">50,000 Customers</div>
+            <div class="timeline-description">
+              Celebrated serving over 50,000 happy customers across 25+ cities in India.
+            </div>
+          </div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-year">2025</div>
+            <div class="timeline-event">Future Goals</div>
+            <div class="timeline-description">
+              Expanding internationally and launching new product categories to serve you better.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action -->
+  <section class="cta-section">
+    <div class="container">
+      <h2>Join the Trendify Family</h2>
+      <p>Be part of our journey as we continue to grow and serve customers worldwide.</p>
+      <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+        <a href="categories.html" class="btn btn-secondary">Start Shopping</a>
+        <a href="contact.html" class="btn btn-outline" style="color: white; border-color: white;">Get in Touch</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>Trendify</h3>
+          <p>Your one-stop shop for trendy products at amazing prices.</p>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <a href="index.html">Home</a>
+          <a href="categories.html">Categories</a>
+          <a href="about.html">About Us</a>
+          <a href="contact.html">Contact</a>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Customer Service</h3>
+          <a href="#">Help Center</a>
+          <a href="#">Shipping Info</a>
+          <a href="#">Returns</a>
+          <a href="#">Size Guide</a>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Connect</h3>
+          <a href="#">Facebook</a>
+          <a href="#">Instagram</a>
+          <a href="#">Twitter</a>
+          <a href="#">YouTube</a>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2025 Trendify. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/utils.js"></script>
+  <script src="js/cart.js"></script>
+  <script>
+    const cartManager = new CartManager();
+
+    // Initialize page
+    document.addEventListener('DOMContentLoaded', () => {
+      checkUserAuth();
+      animateStats();
+    });
+
+    function animateStats() {
+      const stats = [
+        { element: document.querySelector('.stat-number'), target: 50, suffix: 'K+' },
+        { element: document.querySelectorAll('.stat-number')[1], target: 1000, suffix: '+' },
+        { element: document.querySelectorAll('.stat-number')[2], target: 25, suffix: '+' },
+        { element: document.querySelectorAll('.stat-number')[3], target: 4.8, suffix: '', decimal: true }
+      ];
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            stats.forEach(stat => {
+              if (entry.target.contains(stat.element)) {
+                animateNumber(stat.element, stat.target, stat.suffix, stat.decimal);
+              }
+            });
+          }
+        });
+      });
+
+      observer.observe(document.querySelector('.stats-section'));
+    }
+
+    function animateNumber(element, target, suffix, decimal = false) {
+      let current = 0;
+      const increment = target / 50;
+      const timer = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+          current = target;
+          clearInterval(timer);
+        }
+        
+        if (decimal) {
+          element.textContent = current.toFixed(1) + suffix;
+        } else {
+          element.textContent = Math.floor(current) + suffix;
+        }
+      }, 40);
+    }
+
+    function performSearch() {
+      const searchValue = document.getElementById('headerSearch').value.trim();
+      if (searchValue) {
+        window.location.href = `categories.html?search=${encodeURIComponent(searchValue)}`;
+      }
+    }
+
+    function checkUserAuth() {
+      const currentUser = Utils.getLocalStorage('trendify_current_user', null);
+      const userActions = document.getElementById('userActions');
+      
+      if (currentUser) {
+        userActions.innerHTML = `
+          <span>Hi, ${currentUser.firstName}!</span>
+          <button class="btn btn-outline" onclick="logout()">Logout</button>
+        `;
+      }
+    }
+
+    window.logout = function() {
+      localStorage.removeItem('trendify_current_user');
+      cartManager.showNotification('Logged out successfully!', 'info');
+      setTimeout(() => window.location.reload(), 1000);
+    };
+  </script>
+</body>
+</html>

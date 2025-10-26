@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shopping Cart - Trendify</title>
+  <link rel="stylesheet" href="css/main.css">
+  <style>
+    .cart-hero {
+      background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+      color: white;
+      padding: 3rem 0;
+      text-align: center;
+    }
+
+    .cart-hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .cart-content {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+
+    .cart-items {
+      background: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-sm);
+      padding: 2rem;
+    }
+
+    .cart-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .cart-item:last-child {
+      border-bottom: none;
+    }
+
+    .item-image {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: var(--border-radius);
+      flex-shrink: 0;
+    }
+
+    .item-details {
+      flex: 1;
+    }
+
+    .item-name {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--dark-color);
+      margin-bottom: 0.5rem;
+    }
+
+    .item-price {
+      color: var(--primary-color);
+      font-weight: 600;
+    }
+
+    .item-controls {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .quantity-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .quantity-btn {
+      width: 32px;
+      height: 32px;
+      border: 1px solid var(--border-color);
+      background: white;
+      border-radius: 4px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+
+    .quantity-btn:hover {
+      background: var(--primary-color);
+      color: white;
+      border-color: var(--primary-color);
+    }
+
+    .quantity-display {
+      min-width: 40px;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    .remove-btn {
+      color: var(--accent-color);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+      border-radius: 4px;
+      transition: var(--transition);
+    }
+
+    .remove-btn:hover {
+      background: rgba(239, 68, 68, 0.1);
+    }
+
+    .cart-summary {
+      background: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-sm);
+      padding: 2rem;
+      height: fit-content;
+      position: sticky;
+      top: 2rem;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+    }
+
+    .summary-row.total {
+      border-top: 2px solid var(--border-color);
+      padding-top: 1rem;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--dark-color);
+    }
+
+    .empty-cart {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: var(--medium-gray);
+    }
+
+    .empty-cart-icon {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      opacity: 0.5;
+    }
+
+    .empty-cart h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--dark-color);
+    }
+
+    @media (max-width: 768px) {
+      .cart-content {
+        grid-template-columns: 1fr;
+      }
+
+      .cart-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+
+      .cart-hero h1 {
+        font-size: 2rem;
+      }
+
+      .cart-summary {
+        position: static;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <a href="index.html" class="logo">
+        🛒 Trendify
+      </a>
+      
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="categories.html">Categories</a></li>
+          <li><a href="wishlist.html">Wishlist</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <a href="categories.html" class="btn btn-outline">← Continue Shopping</a>
+        
+        <div id="userActions">
+          <a href="login.html" class="btn btn-outline">Login</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Cart Hero -->
+  <section class="cart-hero">
+    <div class="container">
+      <h1>Shopping Cart</h1>
+      <p>Review your items before checkout</p>
+    </div>
+  </section>
+
+  <!-- Cart Content -->
+  <section class="section">
+    <div class="container">
+      <div class="cart-content" id="cartContent">
+        <div class="spinner" style="grid-column: 1 / -1; text-align: center;"></div>
+      </div>
+
+      <!-- Empty Cart -->
+      <div class="empty-cart" id="emptyCart" style="display: none;">
+        <div class="empty-cart-icon">🛒</div>
+        <h3>Your cart is empty</h3>
+        <p>Looks like you haven't added any items to your cart yet</p>
+        <a href="categories.html" class="btn btn-primary">Start Shopping</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>Trendify</h3>
+          <p>Your one-stop shop for trendy products at amazing prices.</p>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <a href="index.html">Home</a>
+          <a href="categories.html">Categories</a>
+          <a href="about.html">About Us</a>
+          <a href="contact.html">Contact</a>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Customer Service</h3>
+          <a href="#">Help Center</a>
+          <a href="#">Shipping Info</a>
+          <a href="#">Returns</a>
+          <a href="#">Size Guide</a>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Connect</h3>
+          <a href="#">Facebook</a>
+          <a href="#">Instagram</a>
+          <a href="#">Twitter</a>
+          <a href="#">YouTube</a>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2025 Trendify. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/utils.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script>
+    // Initialize managers
+    const productManager = new ProductManager();
+    const cartManager = new CartManager();
+
+    // Initialize page
+    document.addEventListener('DOMContentLoaded', () => {
+      loadCart();
+      checkUserAuth();
+    });
+
+    function loadCart() {
+      const cartContent = document.getElementById('cartContent');
+      const emptyCart = document.getElementById('emptyCart');
+      
+      setTimeout(() => {
+        const cartItems = cartManager.getCartItems();
+        
+        if (cartItems.length === 0) {
+          cartContent.style.display = 'none';
+          emptyCart.style.display = 'block';
+        } else {
+          cartContent.style.display = 'grid';
+          emptyCart.style.display = 'none';
+          renderCart(cartItems);
+        }
+      }, 500);
+    }
+
+    function renderCart(items) {
+      const cartContent = document.getElementById('cartContent');
+      
+      const subtotal = items.reduce((sum, item) => sum + item.total, 0);
+      const shipping = subtotal >= 999 ? 0 : 99;
+      const total = subtotal + shipping;
+      
+      cartContent.innerHTML = `
+        <div class="cart-items">
+          <h2 style="margin-bottom: 1.5rem; color: var(--dark-color);">Cart Items (${items.length})</h2>
+          ${items.map(item => `
+            <div class="cart-item">
+              <img src="${item.image}" alt="${item.name}" class="item-image"
+                   onerror="this.src='https://via.placeholder.com/80x80/6366f1/ffffff?text=?'">
+              
+              <div class="item-details">
+                <div class="item-name">${item.name}</div>
+                <div class="item-price">${Utils.formatCurrency(item.price)} each</div>
+              </div>
+              
+              <div class="item-controls">
+                <div class="quantity-controls">
+                  <button class="quantity-btn" onclick="updateQuantity(${item.id}, ${item.quantity - 1})">-</button>
+                  <span class="quantity-display">${item.quantity}</span>
+                  <button class="quantity-btn" onclick="updateQuantity(${item.id}, ${item.quantity + 1})">+</button>
+                </div>
+                
+                <div style="margin-left: 1rem; font-weight: 600; color: var(--primary-color);">
+                  ${Utils.formatCurrency(item.total)}
+                </div>
+                
+                <button class="remove-btn" onclick="removeItem(${item.id})" title="Remove item">
+                  🗑️
+                </button>
+              </div>
+            </div>
+          `).join('')}
+          
+          <div style="margin-top: 2rem; text-align: center;">
+            <button class="btn btn-outline" onclick="clearCart()" style="margin-right: 1rem;">Clear Cart</button>
+            <a href="categories.html" class="btn btn-secondary">Continue Shopping</a>
+          </div>
+        </div>
+        
+        <div class="cart-summary">
+          <h3 style="margin-bottom: 1.5rem; color: var(--dark-color);">Order Summary</h3>
+          
+          <div class="summary-row">
+            <span>Subtotal (${items.length} items)</span>
+            <span>${Utils.formatCurrency(subtotal)}</span>
+          </div>
+          
+          <div class="summary-row">
+            <span>Shipping</span>
+            <span>${shipping === 0 ? 'FREE' : Utils.formatCurrency(shipping)}</span>
+          </div>
+          
+          ${shipping > 0 ? `
+          <div style="background: var(--light-gray); padding: 1rem; border-radius: 4px; margin: 1rem 0; font-size: 0.9rem; color: var(--medium-gray);">
+            Add ${Utils.formatCurrency(999 - subtotal)} more for free shipping!
+          </div>
+          ` : ''}
+          
+          <div class="summary-row total">
+            <span>Total</span>
+            <span>${Utils.formatCurrency(total)}</span>
+          </div>
+          
+          <button class="btn btn-primary" onclick="proceedToCheckout()" style="width: 100%; margin-top: 1rem;">
+            Proceed to Checkout
+          </button>
+          
+          <div style="margin-top: 1rem; text-align: center; font-size: 0.9rem; color: var(--medium-gray);">
+            🔒 Secure checkout guaranteed
+          </div>
+        </div>
+      `;
+    }
+
+    function updateQuantity(productId, newQuantity) {
+      cartManager.updateQuantity(productId, newQuantity);
+      loadCart();
+    }
+
+    function removeItem(productId) {
+      if (confirm('Remove this item from your cart?')) {
+        cartManager.removeFromCart(productId);
+        loadCart();
+      }
+    }
+
+    function clearCart() {
+      if (confirm('Are you sure you want to clear your entire cart?')) {
+        cartManager.clearCart();
+        loadCart();
+      }
+    }
+
+    function proceedToCheckout() {
+      const currentUser = Utils.getLocalStorage('trendify_current_user', null);
+      
+      if (!currentUser) {
+        cartManager.showNotification('Please login to proceed with checkout', 'warning');
+        setTimeout(() => {
+          window.location.href = 'login.html';
+        }, 1500);
+        return;
+      }
+      
+      // Simulate checkout process
+      cartManager.showNotification('Redirecting to secure checkout...', 'info');
+      
+      setTimeout(() => {
+        // In a real app, this would redirect to a payment gateway
+        const orderId = Utils.generateOrderId();
+        alert(`Order placed successfully!\nOrder ID: ${orderId}\n\nThis is a demo - no actual payment was processed.`);
+        
+        // Clear cart after successful order
+        cartManager.clearCart();
+        window.location.href = 'index.html';
+      }, 2000);
+    }
+
+    function checkUserAuth() {
+      const currentUser = Utils.getLocalStorage('trendify_current_user', null);
+      const userActions = document.getElementById('userActions');
+      
+      if (currentUser) {
+        userActions.innerHTML = `
+          <span>Hi, ${currentUser.firstName}!</span>
+          <button class="btn btn-outline" onclick="logout()">Logout</button>
+        `;
+      }
+    }
+
+    window.logout = function() {
+      localStorage.removeItem('trendify_current_user');
+      cartManager.showNotification('Logged out successfully!', 'info');
+      setTimeout(() => window.location.reload(), 1000);
+    };
+  </script>
+</body>
+</html>

@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Trendify</title>
+  <link rel="stylesheet" href="css/main.css">
+  <style>
+    .auth-container {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+      padding: 1rem;
+    }
+
+    .auth-card {
+      background: white;
+      border-radius: 16px;
+      box-shadow: var(--shadow-lg);
+      padding: 2rem;
+      width: 100%;
+      max-width: 400px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .auth-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    }
+
+    .auth-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .auth-header h1 {
+      color: var(--dark-color);
+      margin-bottom: 0.5rem;
+      font-size: 1.8rem;
+    }
+
+    .auth-header p {
+      color: var(--medium-gray);
+      font-size: 0.9rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: var(--dark-color);
+      font-weight: 500;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 2px solid var(--border-color);
+      border-radius: var(--border-radius);
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    }
+
+    .form-input.error {
+      border-color: var(--accent-color);
+    }
+
+    .error-message {
+      color: var(--accent-color);
+      font-size: 0.8rem;
+      margin-top: 0.25rem;
+      display: none;
+    }
+
+    .forgot-password {
+      text-align: right;
+      margin-bottom: 1.5rem;
+    }
+
+    .forgot-password a {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+
+    .forgot-password a:hover {
+      text-decoration: underline;
+    }
+
+    .btn-auth {
+      width: 100%;
+      padding: 0.875rem;
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .divider {
+      text-align: center;
+      margin: 1.5rem 0;
+      position: relative;
+      color: var(--medium-gray);
+    }
+
+    .divider::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: var(--border-color);
+    }
+
+    .divider span {
+      background: white;
+      padding: 0 1rem;
+    }
+
+    .social-login {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .btn-social {
+      padding: 0.75rem;
+      border: 2px solid var(--border-color);
+      background: white;
+      border-radius: var(--border-radius);
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .btn-social:hover {
+      border-color: var(--primary-color);
+      background: var(--light-gray);
+    }
+
+    .auth-footer {
+      text-align: center;
+      color: var(--medium-gray);
+      font-size: 0.9rem;
+    }
+
+    .auth-footer a {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .auth-footer a:hover {
+      text-decoration: underline;
+    }
+
+    .back-home {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      color: white;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+
+    .back-home:hover {
+      color: var(--secondary-color);
+    }
+  </style>
+</head>
+<body>
+  <a href="index.html" class="back-home">
+    ← Back to Home
+  </a>
+
+  <div class="auth-container">
+    <div class="auth-card">
+      <div class="auth-header">
+        <h1>Welcome Back</h1>
+        <p>Sign in to your Trendify account</p>
+      </div>
+
+      <form id="loginForm" class="auth-form">
+        <div class="form-group">
+          <label for="email" class="form-label">Email Address</label>
+          <input type="email" id="email" name="email" class="form-input" required>
+          <div class="error-message" id="emailError"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" id="password" name="password" class="form-input" required>
+          <div class="error-message" id="passwordError"></div>
+        </div>
+
+        <div class="forgot-password">
+          <a href="#" onclick="showForgotPassword()">Forgot Password?</a>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-auth">
+          Sign In
+        </button>
+      </form>
+
+      <div class="divider">
+        <span>Or continue with</span>
+      </div>
+
+      <div class="social-login">
+        <button class="btn-social" onclick="socialLogin('google')">
+          🌐 Google
+        </button>
+        <button class="btn-social" onclick="socialLogin('facebook')">
+          📘 Facebook
+        </button>
+      </div>
+
+      <div class="auth-footer">
+        Don't have an account? <a href="register.html">Sign up here</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/utils.js"></script>
+  <script>
+    // User authentication manager
+    class AuthManager {
+      constructor() {
+        this.users = Utils.getLocalStorage('trendify_users', []);
+        this.currentUser = Utils.getLocalStorage('trendify_current_user', null);
+      }
+
+      login(email, password) {
+        const user = this.users.find(u => u.email === email && u.password === password);
+        if (user) {
+          this.currentUser = { ...user };
+          delete this.currentUser.password; // Don't store password in session
+          Utils.setLocalStorage('trendify_current_user', this.currentUser);
+          return { success: true, user: this.currentUser };
+        }
+        return { success: false, message: 'Invalid email or password' };
+      }
+
+      register(userData) {
+        if (this.users.some(u => u.email === userData.email)) {
+          return { success: false, message: 'Email already registered' };
+        }
+
+        const newUser = {
+          id: Date.now(),
+          ...userData,
+          createdAt: new Date().toISOString(),
+          orders: [],
+          addresses: []
+        };
+
+        this.users.push(newUser);
+        Utils.setLocalStorage('trendify_users', this.users);
+        
+        // Auto login after registration
+        const loginResult = this.login(userData.email, userData.password);
+        return { success: true, user: loginResult.user };
+      }
+
+      logout() {
+        this.currentUser = null;
+        localStorage.removeItem('trendify_current_user');
+      }
+
+      isLoggedIn() {
+        return this.currentUser !== null;
+      }
+
+      getCurrentUser() {
+        return this.currentUser;
+      }
+    }
+
+    const authManager = new AuthManager();
+
+    // Form validation
+    function validateForm() {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      let isValid = true;
+
+      // Reset errors
+      document.querySelectorAll('.error-message').forEach(el => {
+        el.style.display = 'none';
+        el.previousElementSibling.classList.remove('error');
+      });
+
+      // Validate email
+      if (!Utils.validateEmail(email)) {
+        showError('emailError', 'Please enter a valid email address');
+        isValid = false;
+      }
+
+      // Validate password
+      if (password.length < 6) {
+        showError('passwordError', 'Password must be at least 6 characters');
+        isValid = false;
+      }
+
+      return isValid;
+    }
+
+    function showError(elementId, message) {
+      const errorElement = document.getElementById(elementId);
+      const inputElement = errorElement.previousElementSibling;
+      
+      errorElement.textContent = message;
+      errorElement.style.display = 'block';
+      inputElement.classList.add('error');
+    }
+
+    // Handle form submission
+    document.getElementById('loginForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      if (!validateForm()) return;
+
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      const result = authManager.login(email, password);
+      
+      if (result.success) {
+        // Show success notification
+        const cartManager = new (window.CartManager || class { showNotification() {} })();
+        cartManager.showNotification('Login successful! Welcome back.', 'success');
+        
+        // Redirect after short delay
+        setTimeout(() => {
+          window.location.href = 'index.html';
+        }, 1500);
+      } else {
+        showError('passwordError', result.message);
+      }
+    });
+
+    function socialLogin(provider) {
+      alert(`${provider} login would be integrated with actual OAuth provider`);
+    }
+
+    function showForgotPassword() {
+      const email = prompt('Please enter your email address:');
+      if (email && Utils.validateEmail(email)) {
+        alert('Password reset link sent to your email!');
+      } else if (email) {
+        alert('Please enter a valid email address.');
+      }
+    }
+
+    // Redirect if already logged in
+    if (authManager.isLoggedIn()) {
+      window.location.href = 'index.html';
+    }
+  </script>
+</body>
+</html>

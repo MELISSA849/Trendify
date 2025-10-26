@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Categories - Trendify</title>
+  <link rel="stylesheet" href="css/main.css">
+  <style>
+    .categories-hero {
+      background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+      color: white;
+      padding: 3rem 0;
+      text-align: center;
+    }
+
+    .categories-hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .filter-controls {
+      background: white;
+      padding: 2rem 0;
+      box-shadow: var(--shadow-sm);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .filter-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .filter-group {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .filter-select {
+      padding: 0.5rem 1rem;
+      border: 2px solid var(--border-color);
+      border-radius: var(--border-radius);
+      background: white;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .filter-select:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+
+    .view-toggle {
+      display: flex;
+      background: var(--light-gray);
+      border-radius: var(--border-radius);
+      padding: 0.25rem;
+    }
+
+    .view-btn {
+      padding: 0.5rem 1rem;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      border-radius: calc(var(--border-radius) - 2px);
+      transition: var(--transition);
+    }
+
+    .view-btn.active {
+      background: white;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .results-info {
+      padding: 1rem 0;
+      color: var(--medium-gray);
+      font-size: 0.9rem;
+    }
+
+    .product-grid.list-view {
+      display: block;
+    }
+
+    .product-grid.list-view .product-card {
+      display: flex;
+      margin-bottom: 1.5rem;
+      max-width: none;
+    }
+
+    .product-grid.list-view .product-image {
+      width: 200px;
+      flex-shrink: 0;
+    }
+
+    .product-grid.list-view .product-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .price-filter {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .price-input {
+      width: 80px;
+      padding: 0.25rem 0.5rem;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+    }
+
+    .clear-filters {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .clear-filters:hover {
+      text-decoration: underline;
+    }
+
+    .no-results {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: var(--medium-gray);
+    }
+
+    .no-results h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--dark-color);
+    }
+
+    @media (max-width: 768px) {
+      .filter-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .filter-group {
+        justify-content: space-between;
+      }
+
+      .categories-hero h1 {
+        font-size: 2rem;
+      }
+
+      .product-grid.list-view .product-card {
+        flex-direction: column;
+      }
+
+      .product-grid.list-view .product-image {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <a href="index.html" class="logo">
+        🛒 Trendify
+      </a>
+      
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="categories.html">Categories</a></li>
+          <li><a href="wishlist.html">Wishlist</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <div class="search-box">
+          <input type="text" class="search-input" placeholder="Search products..." id="headerSearch">
+          <button class="search-btn" onclick="performSearch()">🔍</button>
+        </div>
+        
+        <a href="cart.html" class="cart-icon">
+          🛒
+          <span class="cart-count">0</span>
+        </a>
+        
+        <div id="userActions">
+          <a href="login.html" class="btn btn-outline">Login</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Categories Hero -->
+  <section class="categories-hero">
+    <div class="container">
+      <h1>Shop by Categories</h1>
+      <p>Discover amazing products across all categories</p>
+    </div>
+  </section>
+
+  <!-- Filter Controls -->
+  <div class="filter-controls">
+    <div class="container">
+      <div class="filter-row">
+        <div class="filter-group">
+          <select class="filter-select" id="categoryFilter">
+            <option value="all">All Categories</option>
+          </select>
+          
+          <select class="filter-select" id="sortFilter">
+            <option value="featured">Featured</option>
+            <option value="price-low">Price: Low to High</option>
+            <option value="price-high">Price: High to Low</option>
+            <option value="rating">Rating</option>
+            <option value="name">Name</option>
+            <option value="newest">Newest</option>
+          </select>
+
+          <div class="price-filter">
+            <span>Price:</span>
+            <input type="number" class="price-input" id="minPrice" placeholder="Min" min="0">
+            <span>-</span>
+            <input type="number" class="price-input" id="maxPrice" placeholder="Max" min="0">
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <a href="#" class="clear-filters" onclick="clearAllFilters()">Clear Filters</a>
+          
+          <div class="view-toggle">
+            <button class="view-btn active" onclick="setView('grid')">⊞</button>
+            <button class="view-btn" onclick="setView('list')">☰</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Products Section -->
+  <section class="section">
+    <div class="container">
+      <div class="results-info" id="resultsInfo">
+        Loading products...
+      </div>
+      
+      <div class="product-grid" id="productGrid">
+        <div class="spinner"></div>
+      </div>
+
+      <div class="no-results" id="noResults" style="display: none;">
+        <h3>No products found</h3>
+        <p>Try adjusting your filters or search terms</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>Trendify</h3>
+          <p>Your one-stop shop for trendy products at amazing prices.</p>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <a href="index.html">Home</a>
+          <a href="categories.html">Categories</a>
+          <a href="about.html">About Us</a>
+          <a href="contact.html">Contact</a>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Customer Service</h3>
+          <a href="#">Help Center</a>
+          <a href="#">Shipping Info</a>
+          <a href="#">Returns</a>
+          <a href="#">Size Guide</a>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Connect</h3>
+          <a href="#">Facebook</a>
+          <a href="#">Instagram</a>
+          <a href="#">Twitter</a>
+          <a href="#">YouTube</a>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2025 Trendify. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/utils.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script>
+    // Initialize managers
+    const productManager = new ProductManager();
+    const cartManager = new CartManager();
+    
+    let currentView = 'grid';
+    let currentFilters = {
+      category: 'all',
+      sort: 'featured',
+      minPrice: null,
+      maxPrice: null,
+      search: ''
+    };
+
+    // Initialize page
+    document.addEventListener('DOMContentLoaded', () => {
+      loadCategories();
+      loadProducts();
+      setupEventListeners();
+      checkUserAuth();
+    });
+
+    function loadCategories() {
+      const categoryFilter = document.getElementById('categoryFilter');
+      const categories = productManager.getCategories();
+      
+      categoryFilter.innerHTML = '<option value="all">All Categories</option>';
+      categories.forEach(category => {
+        if (category.id !== 'all') {
+          const option = document.createElement('option');
+          option.value = category.id;
+          option.textContent = `${category.name} (${category.count})`;
+          categoryFilter.appendChild(option);
+        }
+      });
+    }
+
+    function loadProducts() {
+      const productGrid = document.getElementById('productGrid');
+      const resultsInfo = document.getElementById('resultsInfo');
+      const noResults = document.getElementById('noResults');
+      
+      // Show loading
+      Utils.showLoader(productGrid);
+      
+      setTimeout(() => {
+        let products = productManager.getAllProducts();
+        
+        // Apply filters
+        products = applyFilters(products);
+        
+        // Update results info
+        updateResultsInfo(products.length);
+        
+        if (products.length === 0) {
+          productGrid.innerHTML = '';
+          noResults.style.display = 'block';
+        } else {
+          noResults.style.display = 'none';
+          renderProducts(products);
+        }
+      }, 500);
+    }
+
+    function applyFilters(products) {
+      let filtered = [...products];
+      
+      // Category filter
+      if (currentFilters.category !== 'all') {
+        filtered = filtered.filter(p => p.category === currentFilters.category);
+      }
+      
+      // Price filter
+      if (currentFilters.minPrice !== null) {
+        filtered = filtered.filter(p => p.price >= currentFilters.minPrice);
+      }
+      if (currentFilters.maxPrice !== null) {
+        filtered = filtered.filter(p => p.price <= currentFilters.maxPrice);
+      }
+      
+      // Search filter
+      if (currentFilters.search) {
+        filtered = productManager.searchProducts(currentFilters.search)
+          .filter(p => filtered.includes(p));
+      }
+      
+      // Sort
+      filtered = productManager.sortProducts(filtered, currentFilters.sort);
+      
+      return filtered;
+    }
+
+    function renderProducts(products) {
+      const productGrid = document.getElementById('productGrid');
+      
+      if (products.length === 0) {
+        productGrid.innerHTML = '<p class="no-results">No products found matching your criteria.</p>';
+        return;
+      }
+      
+      const productsHTML = products.map(product => Utils.generateProductCard(product)).join('');
+      productGrid.innerHTML = productsHTML;
+      
+      // Initialize animations
+      Utils.animateOnScroll();
+    }
+
+    function updateResultsInfo(count) {
+      const resultsInfo = document.getElementById('resultsInfo');
+      const categoryName = currentFilters.category === 'all' ? 'All Categories' : 
+        productManager.getCategories().find(c => c.id === currentFilters.category)?.name || 'Category';
+      
+      resultsInfo.textContent = `Showing ${count} products in ${categoryName}`;
+    }
+
+    function setupEventListeners() {
+      // Category filter
+      document.getElementById('categoryFilter').addEventListener('change', (e) => {
+        currentFilters.category = e.target.value;
+        loadProducts();
+      });
+      
+      // Sort filter
+      document.getElementById('sortFilter').addEventListener('change', (e) => {
+        currentFilters.sort = e.target.value;
+        loadProducts();
+      });
+      
+      // Price filters
+      const priceFilterHandler = Utils.debounce(() => {
+        const minPrice = parseInt(document.getElementById('minPrice').value) || null;
+        const maxPrice = parseInt(document.getElementById('maxPrice').value) || null;
+        
+        currentFilters.minPrice = minPrice;
+        currentFilters.maxPrice = maxPrice;
+        loadProducts();
+      }, 500);
+      
+      document.getElementById('minPrice').addEventListener('input', priceFilterHandler);
+      document.getElementById('maxPrice').addEventListener('input', priceFilterHandler);
+      
+      // Search
+      const searchHandler = Utils.debounce(() => {
+        currentFilters.search = document.getElementById('headerSearch').value.trim();
+        loadProducts();
+      }, 300);
+      
+      document.getElementById('headerSearch').addEventListener('input', searchHandler);
+    }
+
+    function clearAllFilters() {
+      currentFilters = {
+        category: 'all',
+        sort: 'featured',
+        minPrice: null,
+        maxPrice: null,
+        search: ''
+      };
+      
+      document.getElementById('categoryFilter').value = 'all';
+      document.getElementById('sortFilter').value = 'featured';
+      document.getElementById('minPrice').value = '';
+      document.getElementById('maxPrice').value = '';
+      document.getElementById('headerSearch').value = '';
+      
+      loadProducts();
+    }
+
+    function setView(view) {
+      currentView = view;
+      const productGrid = document.getElementById('productGrid');
+      const viewBtns = document.querySelectorAll('.view-btn');
+      
+      // Update button states
+      viewBtns.forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+      
+      // Update grid class
+      productGrid.className = view === 'list' ? 'product-grid list-view' : 'product-grid';
+    }
+
+    function performSearch() {
+      const searchValue = document.getElementById('headerSearch').value.trim();
+      currentFilters.search = searchValue;
+      loadProducts();
+    }
+
+    // Global functions for product interactions
+    window.addToCart = function(productId) {
+      cartManager.addToCart(productId);
+    };
+
+    window.toggleWishlist = function(productId) {
+      if (cartManager.isInWishlist(productId)) {
+        cartManager.removeFromWishlist(productId);
+      } else {
+        cartManager.addToWishlist(productId);
+      }
+      loadProducts(); // Refresh to update wishlist icons
+    };
+
+    window.quickView = function(productId) {
+      const product = productManager.getProductById(productId);
+      if (product) {
+        alert(`Quick view for ${product.name} would open in a modal`);
+      }
+    };
+
+    window.viewProduct = function(productId) {
+      const product = productManager.getProductById(productId);
+      if (product) {
+        localStorage.setItem("selectedProduct", JSON.stringify(product));
+        window.location.href = "product.html";
+      }
+    };
+
+    function checkUserAuth() {
+      const currentUser = Utils.getLocalStorage('trendify_current_user', null);
+      const userActions = document.getElementById('userActions');
+      
+      if (currentUser) {
+        userActions.innerHTML = `
+          <span>Hi, ${currentUser.firstName}!</span>
+          <button class="btn btn-outline" onclick="logout()">Logout</button>
+        `;
+      }
+    }
+
+    window.logout = function() {
+      localStorage.removeItem('trendify_current_user');
+      cartManager.showNotification('Logged out successfully!', 'info');
+      setTimeout(() => window.location.reload(), 1000);
+    };
+  </script>
+</body>
+</html>
